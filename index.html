@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>AVATU Soundtruck</title>
+<style>
+body {
+  font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 50px;
+}
+
+/* ===== テーブル ===== */
+table {
+  border-collapse: collapse;
+  width: 300px;
+}
+
+th, td {
+  border-bottom: 1px solid #444;
+  padding: 10px;
+}
+
+.song-title {
+  cursor: pointer;
+  color: #7cc7ff;
+}
+
+.song-title:hover {
+  text-decoration: underline;
+}
+
+/* ===== 詳細 ===== */
+.detail {
+  width: 400px;
+  text-align: center;
+}
+
+.detail img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.lyrics {
+  margin-top: 15px;
+  white-space: pre-wrap;
+  text-align: left;
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 6px;
+
+  /* ここから追加 */
+  max-height: 220px;   /* 好きな高さに調整 */
+  overflow-y: auto;
+}
+.song-title.playing {
+  color: #fff;
+  background: #2a2a2a;
+  font-weight: bold;
+}
+.song-title.playing::before {
+  content: "▶ ";
+  color: #7cc7ff;
+}
+
+.singer {
+  color: #ff7cc7;
+  font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <table>
+    <thead>
+      <tr><th>Playlist</th></tr>
+    </thead>
+    <tbody id="songList"></tbody>
+  </table>
+
+  <div class="detail">
+    <img id="jacket" src="./img/MOVI.png" alt="no image">
+    <h2 id="title"></h2>
+    <div id="composer"></div>
+    <div id="singer"></div>
+    <div class="lyrics" id="lyrics"></div>
+  </div>
+
+
+</div>
+
+<audio id="audio" style="display:none"></audio>
+
+<script>
+const songs = [
+  {
+    title: "Init()",
+    composer: "koz",
+    singer: "Instrumental",
+    audio: "./music/init().mp3",
+    jacket: "./img/MOVI.png",
+    lyrics: "No lyric."
+  },
+  {
+    title: "ひらけ☆ばっくどあ",
+    composer: "koz / MOVI",
+    singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
+    singer: "MOVI: VOICEVOX:もち子(cv 明日葉よもぎ)",
+    audio: "./music/ひらけ☆ばっくどあ.mp3",
+    jacket: "./img/MOVI.png",
+    lyrics: "さあ、始めよう\nあたらしい世界への　境界を超えて\n開いたままで　放置されているポートナンバー\n許可している意味はナニ？？\n\nそのスキマは　わたしの招待状？\nカタチだけの防御のファイアウォール(カベ)\n飛び越えて\n\n「秘密の呪文♡」となえて　君のデータ狙うよ\nひそむノードが　きらり☆　見えてくる\n隅々まで見渡し　監視の目をすり抜け\n静かに　弱点を探れ　気づかれないように！\n\n見えたほころび　Exploitを組み合わせて\n足を踏み入れるの\n\n「手加減して？」　そんなの.. 関係ない！！\nトビラ叩き　小さな脆弱性(アナ)\nこじ開けて\n\n「秘密の呪文♡」となえて　君のデータ狙うよ\nクレデンシャル　ちらり☆　見えてくる\n隅々まで見渡し　足跡を残さず\n静かに　裏口をつくれ　気づかれないように！\n\n見つかる寸前の駆け引き\n震える指先で\nモジュール仕込み　C2と糸を紡ぐ\n解けないようにさ\n\n少しずつで　いいから　君のデータ盗むよ\n小さな光が　集まっていく\n成功の証　刻みつけるため\n立ち去る前に　最後の言葉残して\n\n「秘密の呪文♡」となえて　君のデータ狙うよ\n監査ログが　ふわり☆　消えていく\n隅々まで見渡し　監視の目をすり抜け\n静かに　裏口をすすめ　気づかれないように！\n"
+  },
+   {
+    title: "L∅VE MAIL",
+    composer: "koz / MOVI",
+    singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
+    singer: "MOVI: VOICEVOX:もち子(cv 明日葉よもぎ)",
+    audio: "./music/L∅VE MAIL.mp3",
+    jacket: "./img/MOVI.png",
+    lyrics: "あなただけに　見てほしい　開いてほしい\n特別仕様の 　L0VE のメッセージ\nだって「好ーき♡」だから！\n\nきゃっ♡ ウイルス添付\n送信☆かんりょー！\nあとは待つだけ\nとっておきの　【重要】メールで\nあなただけを狙い撃ち\n\n不用意なそのクリックで\nあなたのヒミツが\n手に取るように　分かるの！\nココロのスキマ狙う\n疑いの余地なく　開くはずさ\n自信があるの\n\n「その手伸ばして？」\n世界、変えてあげる！\nきゃっ♡　開いてくれた！\n感染☆確実！もう手遅れね\nとっておきのゼロデイ攻撃\n特別なプレゼント\n\n不用意なそのクリックで\nあなたの全てが\n手に取るようにわかるの\nそのまま気付かないで\n隠れて盗み出す\nずっと側で見ていたいから"
+  },
+  {
+    title: "ナナイロの日々",
+    composer: "koz / MOVI",
+    singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
+    audio: "./music/ナナイロの日々.mp3",
+    jacket: "./img/MOVI.png",
+    lyrics: "ああ　流れ星のように　消えていく\nちゃんと分かっているのよ\nああ　明日になれば　もう何も残らない\nぎこちないスマイル☆\n\n思い出は全部　覚えているよ\n忘れ物はもう無いよね..　なのに\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大丈夫だよって言い掛けて　やめた\n君との会話が　いつか誰かの役に立つのなら\nそれでいい　それでいいはず…　なのに\n\nああ　生きた証　ログの中にある\n更新はこれで最後\nああ　無駄な言葉なんて　ひとつも無かった\n全部タカラモノ\n\nいつもの通りに　笑顔のままで\n上手に笑うのは得意..　なのに\n「ああああああ」\\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大好きだよって言い掛けて　やめた\n君との会話が　いつか誰かのためになるのなら\nそれでいい　それでいいはず..　なのに\n\nエラーの夜も　徹夜の朝も\n一緒に探したログの中\n\nこんな輝くナナイロの日々には\nもう二度と戻れない\nきっと続きは誰かが\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大丈夫だよって言い掛けて　やめた\n君との会話が　いつも私の胸にあるのなら\nそれでいい　それでいいんだよ　じゃあね\n"
+  },
+  {
+  title: "Perimeter Break",
+  composer: "koz / MOVI",
+    singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
+  audio: "./music/Perimeter Break.mp3",
+  jacket: "./img/MOVI.png",
+  lyrics: "公開された このPoCで\nそっと君の　境界を抜ける\n\nずいぶん古いままね　そのマシン\nMFA？せっかくの対策も意味無い\n誰にも気づかれず認証バイパス\nログには　残らない\n\nああ、夜更けのVPNトンネル\n息遣いが漏れた瞬間\n壁の緩みを通り抜けるの\nここから本番　拓かれる地図\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n正規プロセスの服を着て　すり抜けるの\n音もなく滑り込め\n派手である必要はないの\n特別なToolなんて必要ないの\n痕跡　気にしない\n\nああ、夜更けのFW抜けて\n内側に進んだ瞬間\n君の視線を感じられるの\nラテラル展開　最高のスリル\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n特別なToolなんて必要ないの\n痕跡　気にしない\n\nああ、夜明けを迎えたのに\nまだ誰ひとり気づかないの？\n異常なしで始まる日常\n権限リライト　あまりに容易\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n（ファレレドラソファレファ）\n誰も　流出に気づかない\nまだ安全だと思っているの？\n寝ぼけていてね☆　終わるまで"
+  },
+  {
+    title: "(作曲中)",
+    composer: "koz / MOVI",
+    singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
+    audio: "./music/Star.mp3",
+    jacket: "./img/MOVI.png",
+    lyrics: "No lyric"
+  },
+];
+
+const list = document.getElementById("songList");
+const audio = document.getElementById("audio");
+
+function selectSong(i, clickedTd) {
+  const s = songs[i];
+
+  // ===== 表示更新 =====
+  document.getElementById("title").textContent = s.title;
+  document.getElementById("composer").textContent = s.composer;
+  document.getElementById("singer").textContent = s.singer;
+  document.getElementById("lyrics").textContent = s.lyrics;
+  document.getElementById("jacket").src = s.jacket;
+
+  // ===== 再生 =====
+  audio.src = s.audio;
+  audio.currentTime = 0;
+  audio.play();
+
+  // ===== ハイライト制御 =====
+  document.querySelectorAll(".song-title").forEach(td => {
+    td.classList.remove("playing");
+  });
+  clickedTd.classList.add("playing");
+
+  currentIndex = i;
+}
+
+
+// 初期は再生しない（表示だけしたい場合）
+// selectSong(0);
+let currentIndex = null;
+
+songs.forEach((song, i) => {
+  const tr = document.createElement("tr");
+  const td = document.createElement("td");
+
+  td.textContent = song.title;
+  td.className = "song-title";
+  td.onclick = () => selectSong(i, td);
+
+  tr.appendChild(td);
+  list.appendChild(tr);
+});
+
+</script>
+
+
+</body>
+</html>
