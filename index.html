@@ -58,11 +58,10 @@ th, td {
   background: #1a1a1a;
   padding: 15px;
   border-radius: 6px;
-
-  /* ここから追加 */
-  max-height: 220px;   /* 好きな高さに調整 */
+  max-height: 220px;
   overflow-y: auto;
 }
+
 .song-title.playing {
   color: #fff;
   background: #2a2a2a;
@@ -74,8 +73,8 @@ th, td {
 }
 
 .singer {
-  color: #ff7cc7;
-  font-weight: bold;
+  color: #c6e1f5;
+  font-size: 0.7em;
 }
 
 </style>
@@ -96,7 +95,7 @@ th, td {
     <img id="jacket" src="./img/MOVI.png" alt="no image">
     <h2 id="title"></h2>
     <div id="composer"></div>
-    <div id="singer"></div>
+    <div id="singer" class="singer"></div>
     <div class="lyrics" id="lyrics"></div>
   </div>
 
@@ -109,7 +108,7 @@ th, td {
 const songs = [
   {
     title: "Init()",
-    composer: "koz",
+    composer: "Composer koz",
     singer: "Instrumental",
     audio: "./music/init().mp3",
     jacket: "./img/MOVI.png",
@@ -117,7 +116,7 @@ const songs = [
   },
   {
     title: "ひらけ☆ばっくどあ",
-    composer: "koz / MOVI",
+    composer: "Composer koz / Singer MOVI",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/ひらけ☆ばっくどあ.mp3",
     jacket: "./img/MOVI.png",
@@ -125,7 +124,7 @@ const songs = [
   },
    {
     title: "L∅VE MAIL",
-    composer: "koz / MOVI",
+    composer: "Composer koz / Singer MOVI",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/L∅VE MAIL.mp3",
     jacket: "./img/MOVI.png",
@@ -133,7 +132,7 @@ const songs = [
   },
   {
     title: "ナナイロの日々",
-    composer: "koz / MOVI",
+    composer: "Composer koz / Singer MOVI",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/ナナイロの日々.mp3",
     jacket: "./img/MOVI.png",
@@ -141,7 +140,7 @@ const songs = [
   },
   {
   title: "Thru Ya Perimeter",
-  composer: "koz / MOVI",
+  composer: "Composer koz / Singer MOVI",
   singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
   audio: "./music/Perimeter Break.mp3",
   jacket: "./img/MOVI.png",
@@ -149,7 +148,7 @@ const songs = [
   },
   {
     title: "(作曲中)",
-    composer: "koz / MOVI",
+    composer: "Composer koz / Singer MOVI",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/star.mp3",
     jacket: "./img/MOVI.png",
