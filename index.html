@@ -32,6 +32,7 @@ th, td {
 .song-title {
   cursor: pointer;
   color: #125ca5;
+  transition: background 0.3s;
 }
 
 .song-title:hover {
@@ -72,27 +73,128 @@ th, td {
   color: #52a5e4;
 }
 
+.song-title.disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+  font-style: italic;
+}
+
+
 .singer {
   color: #52a5e4;
   font-size: 0.7em;
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+}
+
+
+
+/* 表示窓 */
+.carousel-viewport {
+  width: 80%;
+  max-width: 240px;
+  overflow: hidden;
+
+  /* 端を薄くする */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+}
+
+/* 横並び */
+.carousel-track {
+  display: flex;
+  gap: 32px;
+  transition: transform 0.6s ease;
+}
+
+/* アルバム画像 */
+.album {
+  width: 100px;
+  flex-shrink: 0;
+  opacity: 0.4;
+  transform: scale(0.9);
+  transition: opacity 0.6s, transform 0.6s;
+  cursor: pointer;
+}
+
+/* 中央アクティブ */
+.album.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ナビボタン */
+.nav {
+  background: none;
+  border: none;
+  font-size: 48px;
+  color: #aaa;
+  cursor: pointer;
+}
+.nav:hover {
+  color: #5d26de;
+}
+
+.page {
+  max-width: 700px;   /* ← ここが肝 */
+  margin: 0 auto;
+  padding: 0 0px;
+}
+
+.play-indicator {
+  width: 24px;
+  height: 43px;
+  vertical-align: middle;
+}
+
+
+body {
+  position: relative;
+  overflow-x: hidden;
 }
 
 </style>
 </head>
 
 <body>
+<div class="page">
+  <div class="carousel">
+  <button class="nav left">‹</button>
+
+  <div class="carousel-viewport">
+    <div class="carousel-track">
+      <img src="./img/popnsignal.png" class="album" data-album="popnsignal">
+      <img src="./img/staticsmile.png" class="album" data-album="avatu02">
+      <img src="./img/fragments.png" class="album" data-album="Fragments">
+    </div>
+  </div>
+
+  <button class="nav right">›</button>
+</div>
 
 <div class="container">
 
   <table>
     <thead>
-      <tr><th>Playlist</th></tr>
+      <tr><th>Playlist　<img class="play-indicator" src="./img/movi-stop.png" data-static="./img/movi-stop.png" data-animated="./img/movi-walk.gif" alt=""></th></tr>
     </thead>
     <tbody id="songList"></tbody>
   </table>
 
   <div class="detail">
-    <img id="jacket" src="./img/MOVI.png" alt="no image">
+    <img id="jacket" src="./img/NO.png" alt="no image">
     <h2 id="title"></h2>
     <div id="composer"></div>
     <div id="singer" class="singer"></div>
@@ -108,56 +210,94 @@ th, td {
 const songs = [
   {
     title: "Init()",
+    album: "avatu02",
+    clickable: true,
     composer: "Composer koz",
     singer: "Instrumental",
     audio: "./music/init().mp3",
-    jacket: "./img/MOVI.png",
+    jacket: "./img/staticsmile.png",
     lyrics: "No lyric."
   },
   {
     title: "ひらけ！ばっくどあ",
+    album: "popnsignal",
+    clickable: true,
     composer: "Composer koz / Singer MOVI",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/open_backdoor.mp3",
-    jacket: "./img/MOVI.png",
+    jacket: "./img/popnsignal.png",
     lyrics: "さあ、始めよう\nあたらしい世界への　境界を超えて\n開いたままで　放置されているポートナンバー\n許可している意味はナニ？？\n\nそのスキマは　わたしの招待状？\nカタチだけの防御のファイアウォール(カベ)\n飛び越えて\n\n「秘密の呪文♡」となえて　君のデータ狙うよ\nひそむノードが　きらり☆　見えてくる\n隅々まで見渡し　監視の目をすり抜け\n静かに　弱点を探れ　気づかれないように！\n\n見えたほころび　Exploitを組み合わせて\n足を踏み入れるの\n\n「手加減して？」　そんなの.. 関係ない！！\nトビラ叩き　小さな脆弱性(アナ)\nこじ開けて\n\n「秘密の呪文♡」となえて　君のデータ狙うよ\nクレデンシャル　ちらり☆　見えてくる\n隅々まで見渡し　足跡を残さず\n静かに　裏口をつくれ　気づかれないように！\n\n見つかる寸前の駆け引き\n震える指先で\nモジュール仕込み　C2と糸を紡ぐ\n解けないようにさ\n\n少しずつで　いいから　君のデータ盗むよ\n小さな光が　集まっていく\n成功の証　刻みつけるため\n立ち去る前に　最後の言葉残して\n\n「秘密の呪文♡」となえて　君のデータ狙うよ\n監査ログが　ふわり☆　消えていく\n隅々まで見渡し　監視の目をすり抜け\n静かに　裏口をすすめ　気づかれないように！\n"
   },
    {
     title: "L∅VE MAIL",
+    album: "popnsignal",
+    clickable: true,
     composer: "Composer koz / Singer MOVI",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/L∅VE MAIL.mp3",
-    jacket: "./img/MOVI.png",
+    jacket: "./img/popnsignal.png",
     lyrics: "あなただけに　見てほしい　開いてほしい\n特別仕様の 　L0VE のメッセージ\nだって「好ーき♡」だから！\n\nきゃっ♡ ウイルス添付\n送信☆かんりょー！\nあとは待つだけ\nとっておきの　【重要】メールで\nあなただけを狙い撃ち\n\n不用意なそのクリックで\nあなたのヒミツが\n手に取るように　分かるの！\nココロのスキマ狙う\n疑いの余地なく　開くはずさ\n自信があるの\n\n「開けてみたいでしょ？」\n\n世界、変えてあげる！\nきゃっ♡　開いてくれた！\n感染☆確実！もう手遅れね\nとっておきのゼロデイ攻撃\n特別なプレゼント\n\n不用意なそのクリックで\nあなたの全てが\n手に取るようにわかるの\nそのまま気付かないで\n隠れて盗み出す\nずっと側で見ていたいから"
   },
   {
     title: "ナナイロの日々",
+    album: "Fragments",
+    clickable: true,
     composer: "Composer koz / Singer MOVI",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/ナナイロの日々.mp3",
-    jacket: "./img/MOVI.png",
+    jacket: "./img/fragments.png",
     lyrics: "ああ　流れ星のように　消えていく\nちゃんと分かっているのよ\nああ　明日になれば　もう何も残らない\nぎこちないスマイル☆\n\n思い出は全部　覚えているよ\n忘れ物はもう無いよね..　なのに\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大丈夫だよって言い掛けて　やめた\n君との会話が　いつか誰かの役に立つのなら\nそれでいい　それでいいはず…　なのに\n\nああ　生きた証　ログの中にある\n更新はこれで最後\nああ　無駄な言葉なんて　ひとつも無かった\n全部タカラモノ\n\nいつもの通りに　笑顔のままで\n上手に笑うのは得意..　なのに\n「ああああああ」\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大好きだよって言い掛けて　やめた\n君との会話が　いつか誰かのためになるのなら\nそれでいい　それでいいはず..　なのに\n\nエラーの夜も　徹夜の朝も\n一緒に探したログの中\n\nこんな輝くナナイロの日々には\nもう二度と戻れない\nきっと続きは誰かが\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大丈夫だよって言い掛けて　やめた\n君との会話が　いつも私の胸にあるのなら\nそれでいい　それでいいんだよ　じゃあね\n"
   },
   {
   title: "Thru Ya Perimeter",
+  album: "avatu02",
+  clickable: true,
   composer: "Composer koz / Singer MOVI",
   singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
   audio: "./music/Perimeter Break.mp3",
-  jacket: "./img/MOVI.png",
+  jacket: "./img/staticsmile.png",
   lyrics: "公開された このPoCで\nそっと君の　境界を抜ける\n\nずいぶん古いままね　そのマシン\nMFA？せっかくの対策も意味無い\n誰にも気づかれず認証バイパス\nログには　残らない\n\nああ、夜更けのVPNトンネル\n息遣いが漏れた瞬間\n壁の緩みを通り抜けるの\nここから本番　拓かれる地図\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n正規プロセスの服を着て　すり抜けるの\n音もなく滑り込め\n派手である必要はないの\n特別なToolなんて必要ないの\n痕跡　気にしない\n\nああ、夜更けのFW抜けて\n内側に進んだ瞬間\n君の視線を感じられるの\nラテラル展開　最高のスリル\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n特別なToolなんて必要ないの\n痕跡　気にしない\n\nああ、夜明けを迎えたのに\nまだ誰ひとり気づかないの？\n異常なしで始まる日常\n権限リライト　あまりに容易\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n（ファレレドラソファレファ）\n誰も　流出に気づかない\nまだ安全だと思っているの？\n寝ぼけていてね☆　終わるまで"
   },
   {
     title: "(作曲中)",
+    album: "Fragments",
+    clickable: true,
     composer: "Composer koz / Singer MOVI",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/star.mp3",
-    jacket: "./img/MOVI.png",
+    jacket: "./img/fragments.png",
     lyrics: "No lyric"
   },
+  {
+    title: "65535",
+    album: "Fragments",
+    clickable: false,
+    composer: "Composer koz / Singer MOVI",
+    singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
+    audio: "",
+    jacket: "./img/fragments.png",
+    lyrics: ""
+  }
 ];
 
 const list = document.getElementById("songList");
 const audio = document.getElementById("audio");
+
+const indicator = document.querySelector(".play-indicator");
+
+audio.addEventListener("play", () => {
+  indicator.src = "";
+  indicator.offsetHeight;
+  indicator.src = indicator.dataset.animated;
+});
+
+audio.addEventListener("pause", () => {
+  indicator.src = indicator.dataset.static;
+});
+
+audio.addEventListener("ended", () => {
+  indicator.src = indicator.dataset.static;
+});
 
 function selectSong(i, clickedTd) {
   const s = songs[i];
@@ -183,11 +323,6 @@ function selectSong(i, clickedTd) {
   currentIndex = i;
 }
 
-
-// 初期は再生しない（表示だけしたい場合）
-// selectSong(0);
-let currentIndex = null;
-
 songs.forEach((song, i) => {
   const tr = document.createElement("tr");
   const td = document.createElement("td");
@@ -200,8 +335,131 @@ songs.forEach((song, i) => {
   list.appendChild(tr);
 });
 
+const track = document.querySelector('.carousel-track');
+let albums = Array.from(document.querySelectorAll('.album'));
+const prev = document.querySelector('.nav.left');
+const next = document.querySelector('.nav.right');
+const viewport = document.querySelector('.carousel-viewport');
+
+/* ===== クローン作成 ===== */
+const firstClone = albums[0].cloneNode(true);
+const lastClone  = albums[albums.length - 1].cloneNode(true);
+
+track.appendChild(firstClone);
+track.insertBefore(lastClone, albums[0]);
+
+track.addEventListener("transitionend", () => {
+  if (index === 0) {
+    // lastClone → 実体末尾
+    index = albums.length - 2;
+    update(false);
+  }
+
+  if (index === albums.length - 1) {
+    // firstClone → 実体先頭
+    index = 1;
+    update(false);
+  }
+});
+
+albums = Array.from(document.querySelectorAll('.album'));
+
+let index = 1; // 実体の先頭
+
+function update(animate = true) {
+  const albumWidth = albums[0].offsetWidth + 32;
+  const offset =
+    -(albumWidth * index)
+    + viewport.offsetWidth / 2
+    - albumWidth / 2;
+
+  track.style.transition = animate ? 'transform 0.6s ease' : 'none';
+  track.style.transform = `translateX(${offset}px)`;
+
+  albums.forEach(a => a.classList.remove("active"));
+
+  const activeAlbum = albums[index];
+  if (!activeAlbum) return;
+
+  activeAlbum.classList.add("active");
+
+  const albumId = activeAlbum.dataset.album;
+  if (albumId) {
+    renderPlaylist(albumId);
+  }
+}
+
+/* ===== 移動 ===== */
+next.onclick = () => {
+  index++;
+  update(true);
+};
+
+prev.onclick = () => {
+  index--;
+  update(true);
+};
+
+window.addEventListener('load', () => update(false));
+window.addEventListener('resize', () => update(false));
+
+
+function renderPlaylist(albumId) {
+  list.innerHTML = "";
+
+  const filtered = songs.filter(s => s.album === albumId);
+
+  filtered.forEach(song => {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+
+    td.textContent = song.title;
+
+    if (song.clickable === false) {
+      td.className = "song-title disabled";
+    } else {
+      td.className = "song-title";
+      td.onclick = () => selectSong(
+        songs.indexOf(song),
+        td
+      );
+    }
+
+    tr.appendChild(td);
+    list.appendChild(tr);
+  });
+}
+
+
+albums.forEach((albumEl, i) => {
+  albumEl.addEventListener("click", () => {
+
+    // clone を踏んだ場合の補正
+    if (i === 0) {
+      // lastClone → 実体の末尾
+      index = albums.length - 2;
+      update(false);
+    } 
+    else if (i === albums.length - 1) {
+      // firstClone → 実体の先頭
+      index = 1;
+      update(false);
+    } 
+    else {
+      // 実体
+      index = i;
+    }
+
+    // 次フレームでアニメ付き更新
+    requestAnimationFrame(() => {
+      update(true);
+    });
+  });
+});
+
+
 </script>
 
-
+</div>
 </body>
 </html>
