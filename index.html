@@ -121,7 +121,7 @@ th, td {
 
 /* アルバム画像 */
 .album {
-  width: 100px;
+  width: 70px;
   flex-shrink: 0;
   opacity: 0.4;
   transform: scale(0.9);
@@ -187,14 +187,14 @@ body {
 <div class="container">
   <table>
     <thead>
-      <tr><th><img id="jacket" src="./img/NO.png"  width="200px" alt="no image"><br><br>
-        Playlist　<img class="play-indicator" src="./img/movi-stop.png" data-static="./img/movi-stop.png" data-animated="./img/movi-walk.gif" alt="">
+      <tr><th>Playlist　<img class="play-indicator" src="./img/movi-stop.png" data-static="./img/movi-stop.png" data-animated="./img/movi-walk.gif" alt="">
       </th></tr>
     </thead>
     <tbody id="songList"></tbody>
   </table>
 
   <div class="detail">
+    <img id="jacket" src="./img/NO.png"  width="250px" alt="no image">
     <h2 id="title"></h2>
     <div id="composer"></div>
     <div id="singer" class="singer"></div>
@@ -259,6 +259,16 @@ const songs = [
   lyrics: "公開された このPoCで\nそっと君の　境界を抜ける\n\nずいぶん古いままね　そのマシン\nMFA？せっかくの対策も意味無い\n誰にも気づかれず認証バイパス\nログには　残らない\n\nああ、夜更けのVPNトンネル\n息遣いが漏れた瞬間\n壁の緩みを通り抜けるの\nここから本番　拓かれる地図\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n正規プロセスの服を着て　すり抜けるの\n音もなく滑り込め\n派手である必要はないの\n特別なToolなんて必要ないの\n痕跡　気にしない\n\nああ、夜更けのFW抜けて\n内側に進んだ瞬間\n君の視線を感じられるの\nラテラル展開　最高のスリル\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n特別なToolなんて必要ないの\n痕跡　気にしない\n\nああ、夜明けを迎えたのに\nまだ誰ひとり気づかないの？\n異常なしで始まる日常\n権限リライト　あまりに容易\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n（ファレレドラソファレファ）\n誰も　流出に気づかない\nまだ安全だと思っているの？\n寝ぼけていてね☆　終わるまで"
   },
   {
+  title: "(作曲中)都市解放",
+  album: "avatu02",
+  clickable: true,
+  composer: "Composer koz / Singer MOVI",
+  singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
+  audio: "./music/NEON.mp3",
+  jacket: "./img/staticsmile.png",
+  lyrics: "ネオンが輝くビル　街を照らしている\nネットの暗闇で　信号の海　すり抜けて\n監視カメラの視線　容易に覗いて\n都市の流れのまま　呼吸を合わせるように\n\n独自のプロトコル　瞬時に読み解いて\nデータの流れ　ここに集めて\n\n君の苦しみを解き放つ　インジェクション\nすべて掴んで　手のひらで未来を変えるんだ\nああ　輝け\n自由を取り戻すため　MITM\n今　全てを貫いて"
+  },
+  {
     title: "(作曲中)",
     album: "Fragments",
     clickable: true,
@@ -266,7 +276,7 @@ const songs = [
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/star.mp3",
     jacket: "./img/fragments.png",
-    lyrics: "No lyric"
+    lyrics: "ふたりで見た景色　\n触れることは叶わず\n思い出そうにも\n消えた記憶は戻らない\n\n触れられない距離が　ちょうどいいと\n自分に言い聞かせて\nもしも　この想いがノイズだとしても\n気づかないふりして\n\n特別じゃないと　自分でもわかっている\nそばに居られるなら　それだけでいい\n近づくほどに　遠くなっていく心\nあなたが笑うのなら　このままがよかったね\n\n触れられない距離が　ちょうど良いと\n自分に言い聞かせて\nもしも　この想いがノイズだとしても\n気づかないふりして"
   },
   {
     title: "65535",
