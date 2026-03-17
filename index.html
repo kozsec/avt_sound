@@ -1,9 +1,60 @@
 <!DOCTYPE html>
 <html lang="ja">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
 <meta charset="UTF-8">
 <title>AVATU Soundtruck</title>
 <style>
+@media (max-width: 768px) {
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  table {
+    width: 100%;
+        max-width: 400px;
+    margin: 0 auto; /* ←中央 */
+  }
+
+  .detail {
+        width: 100%;
+    max-width: 400px;
+    margin: 0 auto; /* ←中央 */
+    text-align: center;
+  }
+
+  .detail img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .lyrics {
+    max-height: 160px;
+    font-size: 14px;
+  }
+  .carousel-viewport {
+    max-width: 200px;
+  }
+  
+}
+  .album {
+    width: 60px;
+  }
+
+  .nav {
+    font-size: 36px;
+  }
+  td {
+    padding: 14px;
+    font-size: 16px;
+  }
+  .page {
+    padding: 0 10px;
+  }
+
 body {
   font-family: "Hiragino Kaku Gothic ProN", sans-serif;
   background: #ffffff;
@@ -97,6 +148,17 @@ th, td {
   justify-content: center;
   gap: 16px;
   position: relative;
+  backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    background: #fff; /* 下が透けないように */
+    padding: 10px 0;
+
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 
