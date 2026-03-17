@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Hacker UI FINAL+</title>
+
+<style>
+body {
+    margin:0;
+    background:#000;
+    font-family:monospace;
+    overflow:hidden;
+    color:#00ff88;
+}
+
+body::before {
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+      linear-gradient(rgba(0,255,100,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,100,0.05) 1px, transparent 1px);
+    background-size:40px 40px;
+}
+
+/* ウィンドウ */
+.panel {
+    position:absolute;
+    width:340px;
+    background:rgba(0,50,20,0.25);
+    border:1px solid rgba(0,255,150,0.3);
+    backdrop-filter:blur(6px);
+    box-shadow:0 0 20px rgba(0,255,100,0.2);
+    display:flex;
+    flex-direction:column;
+    opacity:0;
+    transform:scale(0.8);
+}
+
+.large { width:420px; }
+
+.panel.open {
+    animation:open 0.4s ease forwards;
+}
+
+@keyframes open {
+    to {opacity:1; transform:scale(1);}
+}
+
+/* タイトル */
+.titlebar {
+    background:rgba(0,255,100,0.1);
+    padding:4px 8px;
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    border-bottom:1px solid rgba(0,255,150,0.3);
+}
+
+/* ターミナル */
+.terminal {
+    height:140px;
+    overflow:hidden;
+    padding:5px;
+    font-size:11px;
+}
+
+.line::before {
+    content:"root@sys:~# ";
+    color:#00ffaa;
+}
+
+/* グラフ */
+.graphBox {
+    padding:5px;
+}
+
+.graphLabel {
+    font-size:11px;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:2px;
+}
+
+canvas {
+    width:100%;
+    height:80px;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+// ===== ランダム配置 =====
+function rand(min,max){ return Math.random()*(max-min)+min; }
+
+function randomPos(panel){
+    panel.style.left = rand(0, window.innerWidth-420) + "px";
+    panel.style.top  = rand(0, window.innerHeight-250) + "px";
+}
+
+// ===== パネル生成 =====
+function createPanel(id,title,large=false){
+    const p=document.createElement("div");
+    p.className="panel"+(large?" large":"");
+    p.id=id;
+
+    p.innerHTML=`<div class="titlebar">${title}<span>_ ×</span></div>`;
+    document.body.appendChild(p);
+
+    randomPos(p);
+    return p;
+}
+
+// ===== ターミナル =====
+function addTerminal(p,id){
+    const t=document.createElement("div");
+    t.className="terminal";
+    t.id=id;
+    p.appendChild(t);
+}
+
+// ===== グラフ =====
+function addGraph(p,label,id){
+    const box=document.createElement("div");
+    box.className="graphBox";
+
+    box.innerHTML=`
+      <div class="graphLabel">
+        <span>${label}</span>
+        <span id="${id}_val">0%</span>
+      </div>
+      <canvas id="${id}"></canvas>
+    `;
+    p.appendChild(box);
+}
+
+// ===== 作成 =====
+const panels=[];
+
+// 1
+let p1=createPanel("p1","main.exe",true);
+addTerminal(p1,"t1"); panels.push(p1);
+
+// 2
+let p2=createPanel("p2","scan.log");
+addTerminal(p2,"t2"); panels.push(p2);
+
+// 3 グラフ
+let p3=createPanel("p3","monitor",true);
+addGraph(p3,"CPU","g1");
+addGraph(p3,"TRAFFIC","g2");
+addGraph(p3,"MEMORY","g3");
+panels.push(p3);
+
+// 4〜12
+for(let i=4;i<=12;i++){
+    let p=createPanel("p"+i,"node_"+i);
+    addTerminal(p,"t"+i);
+    panels.push(p);
+}
+
+// ===== ターミナル処理 =====
+const cmds=[
+"nmap -sS target",
+"inject payload",
+"decrypting...",
+"root granted",
+"upload exploit",
+"connection established"
+];
+
+function typeLine(el,text){
+    const d=document.createElement("div");
+    d.className="line";
+    el.appendChild(d);
+    let i=0;
+    const int=setInterval(()=>{
+        d.textContent+=text[i];
+        if(++i>=text.length) clearInterval(int);
+    },20);
+}
+
+function startTerm(el){
+    setInterval(()=>{
+        typeLine(el,cmds[Math.random()*cmds.length|0]);
+        if(el.children.length>15) el.removeChild(el.firstChild);
+    },600);
+}
+
+// ===== 起動 =====
+panels.forEach((p,i)=>{
+    setTimeout(()=>{
+        p.classList.add("open");
+
+        const t=p.querySelector(".terminal");
+        if(i===0){
+            typeLine(t,"ACCESSING...");
+            setTimeout(()=>startTerm(t),1000);
+        } else if(t){
+            startTerm(t);
+        }
+
+    },i*400);
+});
+
+// ===== グラフ描画 =====
+function graph(id,color,smooth=false){
+    const canvas=document.getElementById(id);
+    const ctx=canvas.getContext("2d");
+    const valEl=document.getElementById(id+"_val");
+
+    canvas.width=canvas.clientWidth;
+    canvas.height=canvas.clientHeight;
+
+    let data=Array(40).fill(0.5);
+
+    setInterval(()=>{
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.beginPath();
+        ctx.strokeStyle=color;
+
+        data.forEach((v,i)=>{
+            const x=i/data.length*canvas.width;
+            const y=canvas.height-v*canvas.height;
+            i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+        });
+
+        ctx.stroke();
+
+        const last=data[data.length-1];
+        const next=smooth
+            ? last+(Math.random()-0.5)*0.05
+            : Math.random();
+
+        const clamped=Math.max(0,Math.min(1,next));
+        data.push(clamped);
+        data.shift();
+
+        // ★ 数値表示
+        valEl.textContent = Math.floor(clamped*100) + "%";
+
+    },60);
+}
+
+// 実行
+graph("g1","#00ff88");      // CPU
+graph("g2","#ff3b3b");      // TRAFFIC
+graph("g3","#3baaff",true); // MEMORY
+
+</script>
+
+</body>
+</html>
