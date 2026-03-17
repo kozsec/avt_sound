@@ -10,6 +10,10 @@ body {
   color: #2d2d2d;
 }
 
+#title {
+  margin: 0px 0;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -46,8 +50,8 @@ th, td {
 }
 
 .detail img {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   margin-bottom: 15px;
 }
@@ -60,7 +64,8 @@ th, td {
   padding: 15px;
   border-radius: 6px;
   max-height: 220px;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-width: thin; /* Firefox */
 }
 
 .song-title.playing {
@@ -160,9 +165,14 @@ th, td {
 }
 
 
+
 body {
   position: relative;
   overflow-x: hidden;
+}
+
+.carousel-track {
+  transition: transform 0.6s ease-out;
 }
 
 </style>
@@ -198,8 +208,19 @@ body {
     <h2 id="title"></h2>
     <div id="composer"></div>
     <div id="singer" class="singer"></div>
-    <div class="lyrics" id="lyrics"></div>
-  </div>
+    <div class="lyrics" id="lyrics">▼更新履歴
+・2026/3/17
+- SS: <b>You've been HACKED</b> 公開
+- Fragments: <b>答えのない地図</b> 公開
+
+・2026/2/12
+- SS: <b>init()</b> 公開
+- PS: <b>ナナイロの日々</b> 公開
+
+・2026/2/10
+- PS: <b>ひらけ！ばっくどあ</b> 公開
+- PS: <b>L∅VE MAIL</b> 公開
+- SS: <b>Thru Ya Perimeter</b> 公開</div>
 
 
 </div>
@@ -208,16 +229,7 @@ body {
 
 <script>
 const songs = [
-  {
-    title: "Init()",
-    album: "avatu02",
-    clickable: true,
-    composer: "Composer koz",
-    singer: "Instrumental",
-    audio: "./music/init().mp3",
-    jacket: "./img/staticsmile.png",
-    lyrics: "No lyric."
-  },
+  /* Pop'n SIGNAL */
   {
     title: "ひらけ！ばっくどあ",
     album: "popnsignal",
@@ -240,13 +252,24 @@ const songs = [
   },
   {
     title: "ナナイロの日々",
-    album: "Fragments",
+    album: "popnsignal",
     clickable: true,
     composer: "Composer koz / Singer MOVI",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/ナナイロの日々.mp3",
-    jacket: "./img/fragments.png",
+    jacket: "./img/popnsignal.png",
     lyrics: "ああ　流れ星のように　消えていく\nちゃんと分かっているのよ\nああ　明日になれば　もう何も残らない\nぎこちないスマイル☆\n\n思い出は全部　覚えているよ\n忘れ物はもう無いよね..　なのに\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大丈夫だよって言い掛けて　やめた\n君との会話が　いつか誰かの役に立つのなら\nそれでいい　それでいいはず…　なのに\n\nああ　生きた証　ログの中にある\n更新はこれで最後\nああ　無駄な言葉なんて　ひとつも無かった\n全部タカラモノ\n\nいつもの通りに　笑顔のままで\n上手に笑うのは得意..　なのに\n「ああああああ」\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大好きだよって言い掛けて　やめた\n君との会話が　いつか誰かのためになるのなら\nそれでいい　それでいいはず..　なのに\n\nエラーの夜も　徹夜の朝も\n一緒に探したログの中\n\nこんな輝くナナイロの日々には\nもう二度と戻れない\nきっと続きは誰かが\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大丈夫だよって言い掛けて　やめた\n君との会話が　いつも私の胸にあるのなら\nそれでいい　それでいいんだよ　じゃあね\n"
+  },
+  /* StaticSmile */
+  {
+    title: "Init()",
+    album: "avatu02",
+    clickable: true,
+    composer: "Composer koz",
+    singer: "Instrumental",
+    audio: "./music/init().mp3",
+    jacket: "./img/staticsmile.png",
+    lyrics: "No lyric."
   },
   {
   title: "Thru Ya Perimeter",
@@ -259,6 +282,15 @@ const songs = [
   lyrics: "公開された このPoCで\nそっと君の　境界を抜ける\n\nずいぶん古いままね　そのマシン\nMFA？せっかくの対策も意味無い\n誰にも気づかれず認証バイパス\nログには　残らない\n\nああ、夜更けのVPNトンネル\n息遣いが漏れた瞬間\n壁の緩みを通り抜けるの\nここから本番　拓かれる地図\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n正規プロセスの服を着て　すり抜けるの\n音もなく滑り込め\n派手である必要はないの\n特別なToolなんて必要ないの\n痕跡　気にしない\n\nああ、夜更けのFW抜けて\n内側に進んだ瞬間\n君の視線を感じられるの\nラテラル展開　最高のスリル\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n特別なToolなんて必要ないの\n痕跡　気にしない\n\nああ、夜明けを迎えたのに\nまだ誰ひとり気づかないの？\n異常なしで始まる日常\n権限リライト　あまりに容易\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n（ファレレドラソファレファ）\n誰も　流出に気づかない\nまだ安全だと思っているの？\n寝ぼけていてね☆　終わるまで"
   },
   {
+  title: "You've been HACKED",
+  album: "avatu02",
+  clickable: true,
+  composer: "Composer koz / Singer koz",
+  audio: "./music/youve_been_hacked.mp3",
+  jacket: "./img/staticsmile.png",
+  lyrics: "I’m already inside.\n俺はもう中にいる\n\nSend the ransom or it fades away.\n身代金を送れ、さもなきゃ全部消えていくぜ\n\nStill think you’re safe behind that screen?\nその画面の向こうで　まだ安全だと思ってるの？\n\nYour backup won’t save you tonight. (ROFL)\n今夜はバックアップもお前を救えないぜ (草生えるw)\n\nHACK your world, LOCK your life.\nお前の世界をハックして　人生ごとロックしてやる\n\nYour network has become mine.\nお前のネットワークは　もう俺のものだ\n\nYou closed the door too late.\n扉を閉めるのが　遅すぎた\n\nYou better start to pray.\n祈り始めた方がいい\n\nTick-tock. hear the countdown beep.\nチクタク - カウントダウンの音が鳴る\n\nPay right now. Or lose it all.\nいますぐ払え。さもなくば全部失うぜ"
+  },
+  {
   title: "(作曲中)都市解放",
   album: "avatu02",
   clickable: true,
@@ -267,6 +299,17 @@ const songs = [
   audio: "./music/NEON.mp3",
   jacket: "./img/staticsmile.png",
   lyrics: "ネオンが輝くビル　街を照らしている\nネットの暗闇で　信号の海　すり抜けて\n監視カメラの視線　横から覗いて\n都市の流れに沿い　呼吸を合わせるように\n\n独自のプロトコル　瞬時に読み解いて\nデータの流れ　ここに集めて\n\n君の苦しみを解き放つ　インジェクション\nすべて掴んで　手のひらで未来を変えるんだ\nああ　輝け\n自由を取り戻すため　MITM\n今　全てを欺いて"
+  },
+  /* Fragments */
+  {
+    title: "答えのない地図",
+    album: "Fragments",
+    clickable: true,
+    composer: "Composer carkn / Arranger koz / Singer MOVI",
+    singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
+    audio: "./music/map.mp3",
+    jacket: "./img/fragments.png",
+    lyrics: "ココロの奥　不安と期待の中\n手探りで準備\n仲間と手を取りあいながら\n迎えられた　この日\n\n答えのない地図を　広げて\n見えない敵を　想像しながら\nそれでもみんな\n明日へ　一歩踏み出すんだ\n\n迷いながらでもいいから\n逃げずに立ち向かえば\n越えていける\n越えた壁の数だけ\n僕ら強くなれたんだ　ほら\n\n予想外の展開が続いて\n時間だけが過ぎていくけれど\n進み続けた\n悩んだ時間が　強さになる\n\n悔しさも　やり切れない気持ちも\nすべてをぶつけよう\n明日への期待を\nこの歌に乗せて\n\n未来を紡いだのは　他の誰でもない\nそれはキミだ\nその努力の　向かう先には\nきっと笑顔が\n\nあの日　重ねた　記録が\n僕らの物語に変わっていく\n君たちが今日　灯した光\nきっと未来につながっていく"
   },
   {
     title: "(作曲中)",
@@ -289,6 +332,17 @@ const songs = [
     lyrics: ""
   }
 ];
+
+const preloadImages = [
+  "./img/popnsignal.png",
+  "./img/staticsmile.png",
+  "./img/fragments.png"
+];
+
+preloadImages.forEach(src => {
+  const img = new Image();
+  img.src = src;
+});
 
 const list = document.getElementById("songList");
 const audio = document.getElementById("audio");
@@ -318,6 +372,7 @@ function selectSong(i, clickedTd) {
   document.getElementById("singer").textContent = s.singer;
   document.getElementById("lyrics").textContent = s.lyrics;
   document.getElementById("jacket").src = s.jacket;
+  document.getElementById("lyrics").scrollTop = 0;
 
   // ===== 再生 =====
   audio.src = s.audio;
@@ -351,30 +406,46 @@ const prev = document.querySelector('.nav.left');
 const next = document.querySelector('.nav.right');
 const viewport = document.querySelector('.carousel-viewport');
 
-/* ===== クローン作成 ===== */
-const firstClone = albums[0].cloneNode(true);
-const lastClone  = albums[albums.length - 1].cloneNode(true);
-
-track.appendChild(firstClone);
-track.insertBefore(lastClone, albums[0]);
 
 track.addEventListener("transitionend", () => {
   if (index === 0) {
-    // lastClone → 実体末尾
+    track.style.transition = "none";
     index = albums.length - 2;
     update(false);
   }
 
-  if (index === albums.length - 1) {
-    // firstClone → 実体先頭
-    index = 1;
+  track.addEventListener("transitionend", () => {
+  if (index < visibleCount) {
+    track.style.transition = "none";
+    index += originals.length;
+    update(false);
+  }
+
+  if (index >= originals.length + visibleCount) {
+    track.style.transition = "none";
+    index -= originals.length;
     update(false);
   }
 });
+});
+
+const visibleCount = 3; // 中央＋左右分
+
+let index = visibleCount;
+
+
+const originals = Array.from(document.querySelectorAll('.album'));
+
+// 前後に複数コピー
+for (let i = 0; i < visibleCount; i++) {
+  const first = originals[i].cloneNode(true);
+  const last = originals[originals.length - 1 - i].cloneNode(true);
+
+  track.appendChild(first);
+  track.insertBefore(last, track.firstChild);
+}
 
 albums = Array.from(document.querySelectorAll('.album'));
-
-let index = 1; // 実体の先頭
 
 function update(animate = true) {
   const albumWidth = albums[0].offsetWidth + 32;
@@ -398,6 +469,7 @@ function update(animate = true) {
     renderPlaylist(albumId);
   }
 }
+
 
 /* ===== 移動 ===== */
 next.onclick = () => {
@@ -440,31 +512,25 @@ function renderPlaylist(albumId) {
   });
 }
 
+track.addEventListener("click", (e) => {
+  const albumEl = e.target.closest(".album");
+  if (!albumEl) return;
 
-albums.forEach((albumEl, i) => {
-  albumEl.addEventListener("click", () => {
+  const i = albums.indexOf(albumEl);
 
-    // clone を踏んだ場合の補正
-    if (i === 0) {
-      // lastClone → 実体の末尾
-      index = albums.length - 2;
-      update(false);
-    } 
-    else if (i === albums.length - 1) {
-      // firstClone → 実体の先頭
-      index = 1;
-      update(false);
-    } 
-    else {
-      // 実体
-      index = i;
-    }
+  if (i === -1) return;
 
-    // 次フレームでアニメ付き更新
-    requestAnimationFrame(() => {
-      update(true);
-    });
-  });
+  if (i === 0) {
+    index = albums.length - visibleCount - 1;
+  } 
+  else if (i === albums.length - 1) {
+    index = visibleCount;
+  } 
+  else {
+    index = i;
+  }
+
+  update(true);
 });
 
 
