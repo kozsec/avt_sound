@@ -119,6 +119,15 @@ th, td {
   scrollbar-width: thin; /* Firefox */
 }
 
+.composer2 {
+  margin-top: 0px;
+  white-space: pre-wrap;
+  text-align: center;
+  background: #ffffff;
+  padding: 0px;
+  border-radius: 0px;
+}
+
 .song-title.playing {
   color: #151515;
   background: #eeeeee;
@@ -283,9 +292,9 @@ body {
 
   <div class="carousel-viewport">
     <div class="carousel-track">
-      <img src="./img/popnsignal.png" class="album" data-album="popnsignal">
-      <img src="./img/staticsmile.png" class="album" data-album="avatu02">
-      <img src="./img/fragments.png" class="album" data-album="Fragments">
+      <img src="./img/HW.png" class="album" data-album="HW">
+      <img src="./img/SS.png" class="album" data-album="SS">
+      <img src="./img/LM.png" class="album" data-album="LM">
     </div>
   </div>
 
@@ -311,20 +320,21 @@ body {
     <h2 id="title"></h2>
     <div id="composer"></div>
     <div id="singer" class="singer"></div>
+    <div class="composer2" id="composer2"></div>
     <div class="lyrics" id="lyrics">▼更新履歴
 ・2026/3/17
-- PS: <b>勝利のSIGNAL</b> 公開
+- HW: <b>勝利のSIGNAL</b> 公開
 - SS: <b>You've been HACKED</b> 公開
-- Fragments: <b>答えのない地図</b> 公開
+- LM: <b>答えのない地図</b> 公開
 
 ・2026/2/12
 - SS: <b>init()</b> 公開
-- PS: <b>ナナイロの日々</b> 公開
+- HW: <b>ナナイロの日々</b> 公開
 
 ・2026/2/10
-- PS: <b>ひらけ！ばっくどあ</b> 公開
-- PS: <b>L∅VE MAIL</b> 公開
-- SS: <b>Thru Ya Perimeter</b> 公開</div>
+- HW: <b>ひらけ！ばっくどあ</b> 公開
+- HW: <b>L∅VE MAIL</b> 公開
+- HW: <b>Thru Ya Perimeter</b> 公開</div>
 
 
 </div>
@@ -336,121 +346,131 @@ const songs = [
   /* Pop'n SIGNAL */
   {
     title: "ひらけ！ばっくどあ",
-    album: "popnsignal",
+    album: "HW",
     clickable: true,
-    composer: "Singer: MOVI\nComposer/Lyrics: koz",
+    composer: "Singer: MOVI",
+    composer2: "Composer: koz\nLyrics: koz",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/open_backdoor.mp3",
-    jacket: "./img/popnsignal.png",
+    jacket: "./img/HW.png",
     lyrics: "さあ、始めよう\nあたらしい世界への　境界を超えて\n開いたままで　放置されているポートナンバー\n許可している意味はナニ？？\n\nそのスキマは　わたしの招待状？\nカタチだけの防御のファイアウォール(カベ)\n飛び越えて\n\n「秘密の呪文♡」となえて　君のデータ狙うよ\nひそむノードが　きらり☆　見えてくる\n隅々まで見渡し　監視の目をすり抜け\n静かに　弱点を探れ　気づかれないように！\n\n見えたほころび　Exploitを組み合わせて\n足を踏み入れるの\n\n「手加減して？」　そんなの.. 関係ない！！\nトビラ叩き　小さな脆弱性(アナ)\nこじ開けて\n\n「秘密の呪文♡」となえて　君のデータ狙うよ\nクレデンシャル　ちらり☆　見えてくる\n隅々まで見渡し　足跡を残さず\n静かに　裏口をつくれ　気づかれないように！\n\n見つかる寸前の駆け引き\n震える指先で\nモジュール仕込み　C2と糸を紡ぐ\n解けないようにさ\n\n少しずつで　いいから　君のデータ盗むよ\n小さな光が　集まっていく\n成功の証　刻みつけるため\n立ち去る前に　最後の言葉残して\n\n「秘密の呪文♡」となえて　君のデータ狙うよ\n監査ログが　ふわり☆　消えていく\n隅々まで見渡し　監視の目をすり抜け\n静かに　裏口をすすめ　気づかれないように！\n"
   },
    {
     title: "L∅VE MAIL",
-    album: "popnsignal",
+    album: "HW",
     clickable: true,
-    composer: "Singer: MOVI\nComposer/Lyrics: koz",
+    composer: "Singer: MOVI",
+    composer2: "Composer: koz\nLyrics: koz",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/L∅VE MAIL.mp3",
-    jacket: "./img/popnsignal.png",
+    jacket: "./img/HW.png",
     lyrics: "あなただけに　見てほしい　開いてほしい\n特別仕様の 　L0VE のメッセージ\nだって「好ーき♡」だから！\n\nきゃっ♡ ウイルス添付\n送信☆かんりょー！\nあとは待つだけ\nとっておきの　【重要】メールで\nあなただけを狙い撃ち\n\n不用意なそのクリックで\nあなたのヒミツが\n手に取るように　分かるの！\nココロのスキマ狙う\n疑いの余地なく　開くはずさ\n自信があるの\n\n「開けてみたいでしょ？」\n\n世界、変えてあげる！\n\nきゃっ♡　開いてくれた！\n感染☆確実！もう手遅れね\nとっておきのゼロデイ攻撃\n特別なプレゼント\n\n不用意なそのクリックで\nあなたの挙動が\n手に取るようにわかるの\nそのまま気付かないで\n隠れて盗み出す\nずっと側で見守っているよ"
   },
   {
     title: "ナナイロの日々",
-    album: "popnsignal",
+    album: "HW",
     clickable: true,
-    composer: "Singer MOVI\nComposer/Lyrics: koz",
+    composer: "Singer: MOVI",
+    composer2: "Composer: koz\nLyrics: koz",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/ナナイロの日々.mp3",
-    jacket: "./img/popnsignal.png",
+    jacket: "./img/HW.png",
     lyrics: "ああ　流れ星のように　消えていく\nちゃんと分かっているのよ\nああ　明日になれば　もう何も残らない\nぎこちないスマイル☆\n\n思い出は全部　覚えているよ\n忘れ物はもう無いよね..　なのに\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大丈夫だよって言い掛けて　やめた\n君との会話が　いつか誰かの役に立つのなら\nそれでいい　それでいいはず…　なのに\n\nああ　生きた証　ログの中にある\n更新はこれで最後\nああ　無駄な言葉なんて　ひとつも無かった\n全部タカラモノ\n\nいつもの通りに　笑顔のままで\n上手に笑うのは得意..　なのに\n「ああああああ」\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大好きだよって言い掛けて　やめた\n君との会話が　いつか誰かのためになるのなら\nそれでいい　それでいいはず..　なのに\n\nエラーの夜も　徹夜の朝も\n一緒に探したログの中\n\nこんな輝くナナイロの日々には\nもう二度と戻れない\nきっと続きは誰かが\n\n「さよなら」じゃなくて\n「ありがとう」なんてずるいよ\n大丈夫だよって言い掛けて　やめた\n君との会話が　いつも私の胸にあるのなら\nそれでいい　それでいいんだよ　じゃあね"
   },
     {
     title: "勝利のSIGNAL",
-    album: "popnsignal",
+    album: "HW",
     clickable: true,
-    composer: "Singer MOVI\nComposer/Lyrics: koz",
+    composer: "Singer: MOVI",
+    composer2: "Composer: koz\nLyrics: koz",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/勝利のSIGNAL.mp3",
-    jacket: "./img/popnsignal.png",
+    jacket: "./img/HW.png",
     lyrics: "目覚ましより　早く起きて\n昨日の不安に　ログアウト\n笑ってジャンプ　一気に飛び越えてく！\n\n今日は絶対　楽しくなる！そんな予感がしているの\n靴ひも結んで　深呼吸\n\n失敗？エラー？　それも経験値\n転んだ数だけ　強くなる\n\n今だ！フル回転でGo　心のCPU\nドキドキはもう　止められない\n\n曇り空さえ　味方にして進もうよ\n涙も全部　連れていこうよ\n\n派手なヒーローじゃなくていい\n剣も魔法も　なくたっていい\n守りたい気持ち　それだけあればいいの\n\n何度やられても　何度挫けそうになったとしても\n立ち上がるたび　強くなれる\n\nそれでも指は　止まらなかったね\n守りたいその気持ちの勝ち！\n\n今だ！フル回転でGo　勝利のSIGNAL\nドキドキはもう　止められない\n不測のミスさえ　味方にして進もうよ\nトラブルも全部　正解にしようよ\n\n答えは　誰も教えては　くれないけど\nもしも一つでも　欠けていたなら\n結果は違っていたかもしれないよね\n\nここにいるみんなが　君の頑張った姿を\nよく知っている　褒め称えよう\n脅威が消えたその裏に　君がいたんだ\n守り抜いたんだ\n\n今だ！フル回転でGo　勝利は君の手の中にある\n歌で祝おう\n明日になれば　ドキドキはまた　続いていくはずさ"
   },
   /* StaticSmile */
   {
     title: "Init()",
-    album: "avatu02",
+    album: "SS",
     clickable: true,
-    composer: "Composer: koz",
+    composer: "",
+    composer2: "Composer: koz\nLyrics: N/A",
     singer: "Instrumental",
     audio: "./music/init().mp3",
-    jacket: "./img/staticsmile.png",
+    jacket: "./img/SS.png",
     lyrics: "No lyric."
   },
   {
   title: "Thru Ya Perimeter",
-  album: "avatu02",
+  album: "SS",
   clickable: true,
-  composer: "Singer MOVI\nComposer/Lyrics: koz",
+  composer: "Singer: MOVI",
+  composer2: "Composer: koz\nLyrics: koz",
   singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
   audio: "./music/Thru_Ya_Perimeter.mp3",
-  jacket: "./img/staticsmile.png",
+  jacket: "./img/SS.png",
   lyrics: "公開された このPoCで\nそっと君の　境界を抜ける\n\nずいぶん古いままね　そのマシン\nMFA？せっかくの対策も意味無い\n誰にも気づかれず認証バイパス\nログには　残らない\n\nああ、夜更けのVPNトンネル\n息遣いが漏れた瞬間\n壁の緩みを通り抜けるの\nここから本番　拓かれる地図\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n正規プロセスの服を着て　すり抜けるの\n音もなく滑り込め\n派手である必要はないの\n目立たずに　通過する正常アクセス\n痕跡　気にしない\n\nああ、夜更けのFW抜けて\n内側に進んだ瞬間\n君の視線を感じられるの\nラテラル展開　最高のスリル\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n特別なToolなんて必要ないよ\n静かに　溶けるように\n\nああ、夜明けを迎えたのに\nまだ誰ひとり気づかないの？\n異常なしで始まる日常\n権限リライト　あまりに容易\nこの世界は　私のもの\nぶち抜け⭐︎ペリメーター\n\n少しのノイズだけじゃ\n誰も　異常に気づかない\nまだ安全だと思っているの？\n今気づいても　手遅れよ"
   },
   {
   title: "You've been HACKED",
-  album: "avatu02",
+  album: "SS",
   clickable: true,
-  composer: "Singer/Composer/Lyrics: koz",
+  composer: "",
+  composer2: "Singer: koz (Scream/Female Voice)\nComposer: koz\nLyrics: koz",
   audio: "./music/youve_been_hacked.mp3",
-  jacket: "./img/staticsmile.png",
+  jacket: "./img/SS.png",
   lyrics: "I’m already inside.\n俺はもう中にいる\n\nSend the ransom or it fades away.\n身代金を送れ、さもなきゃ全部消えていくぜ\n\nStill think you’re safe behind that screen?\nその画面の向こうで　まだ安全だと思ってるの？\n\nYour backup won’t save you tonight.\n今夜はバックアップもお前を救えないぜ\n\nHACK your world, LOCK your life.\nお前の世界をハックして　人生ごとロックしてやる\n\nYour network has become mine.\nお前のネットワークは　もう俺のものだ\n\nYou closed the door too late.\n扉を閉めるのが　遅すぎた\n\nYou better start to pray.\n祈り始めた方がいい\n\nTick-tock. hear the countdown beep.\nチクタク - カウントダウンの音が鳴る\n\nPay right now. Or lose it all.\nいますぐ払え。さもなくば全部失うぜ"
   },
   {
-  title: "(作曲中)都市解放",
-  album: "avatu02",
+  title: "都市解放(作曲中デモ)",
+  album: "SS",
   clickable: true,
-  composer: "Singer MOVI\nComposer/Lyrics: koz",
+  composer: "Singer: MOVI",
+  composer2: "Composer: koz\nLyrics: koz",
   singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
   audio: "./music/NEON.mp3",
-  jacket: "./img/staticsmile.png",
+  jacket: "./img/SS.png",
   lyrics: "ネオンが輝くビル　街を照らしている\nネットの暗闇で　信号の海　すり抜けて\n監視カメラの視線　横から覗いて\n都市の流れに沿い　呼吸を合わせるように\n\n独自のプロトコル　瞬時に読み解いて\nデータの流れ　ここに集めて\n\n君の苦しみを解き放つ　インジェクション\nすべて掴んで　手のひらで未来を変えるんだ\nああ　輝け\n自由を取り戻すため　MITM\n今　全てを欺いて"
   },
-  /* Fragments */
+  /* LM */
   {
     title: "答えのない地図",
-    album: "Fragments",
+    album: "LM",
     clickable: true,
-    composer: "Singer: MOVI\nComposer: carkn\nArrangement/Lyrics: koz",
+    composer: "Singer: MOVI",
+    composer2: "Composer: carkn\nArrangement: koz\nLyrics: koz",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/map.mp3",
-    jacket: "./img/fragments.png",
+    jacket: "./img/LM.png",
     lyrics: "ココロの奥　不安と期待の中\n手探りで準備\n仲間と手を取りあいながら\n迎えられた　この日\n\n答えのない地図を　広げて\n見えない敵を　想像しながら\nそれでもみんな\n明日へ　一歩踏み出すんだ\n\n迷いながらでもいいから\n逃げずに立ち向かえば\n越えていける\n越えた壁の数だけ\n僕ら強くなれたんだ　ほら\n\n予想外の展開が続いて\n時間だけが過ぎていくけれど\n進み続けた\n悩んだ時間が　強さになる\n\n悔しさも　やり切れない気持ちも\nすべてをぶつけよう\n明日への期待を\nこの歌に乗せて\n\n未来を紡いだのは　他の誰でもない\nそれはキミだ\nその努力の　向かう先には\nきっと笑顔が\n\nあの日　重ねた　記録が\n僕らの物語に変わっていく\n君たちが今日　灯した光\nきっと未来につながっていく"
   },
   {
-    title: "(作曲中)",
-    album: "Fragments",
-    clickable: true,
-    composer: "Singer MOVI\nComposer/Lyrics: koz",
+    title: "Noise(作曲中)",
+    album: "LM",
+    clickable: false,
+    composer: "Singer MOVI",
+    composer2: "Composer: koz\nLyrics: koz",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "./music/star.mp3",
-    jacket: "./img/fragments.png",
+    jacket: "./img/LM.png",
     lyrics: "ふたりで見た景色　\n触れることは叶わず\n思い出そうにも\n消えた記憶は戻らない\n\n触れられない距離が　ちょうどいいと\n自分に言い聞かせて\nもしも　この想いがノイズだとしても\n気づかないふりして\n\n特別じゃないと　自分でもわかっている\nそばに居られるなら　それだけでいい\n近づくほどに　遠くなっていく心\nあなたが笑うのなら　このままがよかったね\n\n触れられない距離が　ちょうど良いと\n自分に言い聞かせて\nもしも　この想いがノイズだとしても\n気づかないふりして"
   },
   {
-    title: "65535",
-    album: "Fragments",
+    title: "65535(作曲中)",
+    album: "LM",
     clickable: false,
     composer: "Singer MOVI\nComposer/Lyrics: koz",
     singer: "声→VOICEVOX:もち子(cv 明日葉よもぎ)",
     audio: "",
-    jacket: "./img/fragments.png",
+    jacket: "./img/LM.png",
     lyrics: ""
   }
 ];
 
 const preloadImages = [
-  "./img/popnsignal.png",
-  "./img/staticsmile.png",
-  "./img/fragments.png"
+  "./img/HW.png",
+  "./img/SS.png",
+  "./img/LM.png"
 ];
 
 preloadImages.forEach(src => {
@@ -498,6 +518,7 @@ function selectSong(i, clickedTd) {
   // ===== 表示更新 =====
   document.getElementById("title").textContent = s.title;
   document.getElementById("composer").textContent = s.composer;
+  document.getElementById("composer2").textContent = s.composer2;
   document.getElementById("singer").textContent = s.singer;
   document.getElementById("lyrics").textContent = s.lyrics;
   document.getElementById("jacket").src = s.jacket;
